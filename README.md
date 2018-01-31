@@ -1,8 +1,6 @@
 # Explorer
 Explorer Online Q&amp;A Website
 - - -
-北京邮电大学计算机学院15级网络工程专业网络编程技术大作业 
-- - -
 ### 简介
 仿“知乎”在线问答网站
 ### 功能

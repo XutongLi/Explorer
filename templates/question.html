@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Explorer - 问题列表</title>
+    <link rel="icon" type="image/x-icon" href="/static/img/logo.ico">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/question/reset.css" >
+	<link rel="stylesheet" href="/static/css/question/style.css">
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="/static/js/jquery-1.11.0.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        img {
+            max-width:100%;
+        }
+        body {
+            margin:0;
+            padding:0;
+            background:url(/static/img/banner.jpg);
+            background-repeat:no-repeat;
+            background-attachment:fixed;
+            background-position:center;
+            background-size:cover;
+            -webkit-background-size:cover;
+            -moz-background-size:cover;
+            -o-background-size:cover;
+            -ms-background-size:cover;
+            font-family: 'Exo', sans-serif;
+            font-weight:normal;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-color: rgba(83, 83, 83, 0.64);">
+
+            <div class="navbar-header col-md-2 col-md-offset-1">
+                <a class="navbar-brand" style="color: white"> &emsp;&ensp;Explorer</a>
+            </div>
+            <div class="col-md-5">
+                <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="search" placeholder="Search" style="width: 400px;" >
+                    </div>
+                    <button type="button" class="btn btn-default" id="questionBtn"  style="width: 80px;background-color: whitesmoke">提问</button>
+                </form>
+            </div>
+            <div class="col-md-offset-1 col-md-1">
+                <!--下拉按钮(用户信息，退出登录)-->
+                <div class="dropdown">
+                    <button type="button" class="btn dropdown-toggle navbar-btn" id="dropdownMenu1"
+                            data-toggle="dropdown" style="background-color: whitesmoke;width: 150px;">
+                        <i class="fa fa-user-circle-o"></i> 我的账号 <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="/user/?username={{ username }}">账号信息</a>
+                        </li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="/logout/">退出登录</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+</div>
+<br>
+<br>
+<div class="container" style="background-color: rgba(132, 132, 132, 0.37)">
+    <br>
+    <div class="row">
+        <div class="panel panel-default col-md-10 col-md-offset-1" >
+            <div class="panel-heading">
+                <h1 class="panel-title" style="height:25px;text-align:center;font-size: 20px;">热点问题</h1>
+            </div>
+            <div class="panel-body">
+                <dl class="hotdl">
+                    {% for hotquestion in quelist_2 %}
+                    <dt class="hotdt" id="hdt1">{{ hotquestion.questionname }}</dt>
+                    <dd class="hotdd" id="hdd1">
+                        <p>{{ hotquestion.content }}</p>
+                        <button type="button" class="btn btn-primary" onclick="location.href='/answer/?nomalid={{ hotquestion.id }}'">查看答案</button>
+                    </dd>
+                    {% endfor %}
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="panel panel-default col-md-10 col-md-offset-1">
+            <div class="panel-heading">
+                <h1 class="panel-title" style="height:25px;text-align:center;font-size: 20px;">问题列表</h1>
+            </div>
+            <div class="panel-body">
+                <dl class="questiondl" id="questiondl">
+                    {%  for nomal in quelist %}
+                    <dt class="questiondt" id="dt{{ nomal.id }}">{{ nomal.questionname }}</dt>
+                    <dd class="questiondd" id="dd{{ nomal.id }}">
+                        <p>{{ nomal.content }}</p>
+                        <button type="button" class="btn btn-primary" onclick="location.href='/answer/?nomalid={{  nomal.id }}'">查看答案</button>
+                    </dd>
+                    {% endfor %}
+
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="text-align: center;" >
+        <p style="color: whitesmoke;">Copyright © 2018 Explorer_Team. All rights reserved.</p>
+    </div>
+</div>
+
+<!-- Bootstrap modal -->
+<div class="modal fade" id="quesModel" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title" style="text-align: center;color: #5e5e5e;">Explorer - 提问</h3>
+            </div>
+            <div class="modal-body form">
+                <form action="#" id="form" class="form-horizontal" name="quesForm" >
+                    {% csrf_token %}
+                    <input type="hidden" name="username" value="{{ username }}"  >
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label class="control-label col-md-3" style="color: #5e5e5e;">问题</label>
+                            <div class="col-md-7">
+                                <input name="quesHead" class="form-control" type="text" id="quesHead" name="quesHead">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3" style="color: #5e5e5e;">问题描述</label>
+                            <div class="col-md-7">
+                                <textarea name="quesContent" class="form-control" type="text" id="quesContent" name="quesContent" style="height: 250px;"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <span id="quesWarn" style="color: #633e12;"></span>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <button type="button" id="subQuesBtn" class="btn btn-primary">提问</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<!-- End Bootstrap modal -->
+
+	<script type="text/javascript">
+        $(function(){
+            //问题列表折叠函数
+            $('.questiondd').filter(':nth-child(n)').hide();
+		    $('.questiondl').on('click', '.questiondt', function() {
+		        $(this).next().slideToggle(200);
+		    });
+
+            //热点列表折叠
+            $('.hotdd').filter(':nth-child(n)').hide();
+            $('.hotdl').on('click', '.hotdt', function() {
+                $(this).next().slideToggle(200);
+            });
+
+            //搜索功能
+            $(document).on("input propertychange",'#search', function () {
+                var str = $("#search").val();
+                var viewlist = $(".questiondl").find(".questiondt");
+                var ddlist= $(".questiondl").find(".questiondd");
+                for(var i = 0; i < viewlist.length; i++){
+                    var id1 = "#" + viewlist.eq(i).attr("id");
+                    var id2 = "#" + ddlist.eq(i).attr("id");
+                    if(viewlist.eq(i).text().toLowerCase().indexOf(str.toLowerCase()) != -1 ){
+                        $(id1).show();
+                    }
+                    else{
+                        $(id1).hide();
+                        $(id2).hide();
+                    }
+                }
+            });
+
+            //提问框弹出
+            $("#questionBtn").on('click',function (){
+                save_method = 'add';
+                $("#quesHead").val("");
+                $("#quesContent").val("");
+                $('#quesWarn').text("");
+                $("#quesModel").modal('show');
+            });
+
+            //判断提问内容
+            $("#subQuesBtn").on('click',function (){
+                var url;
+                var x = $("#quesHead").val();
+                var y = $("#quesContent").val();
+                if (x == null || x == "" ||y == null ||y == ""){
+                    $('#quesWarn').text("Warning: 请输入问题名与问题描述");
+                    return false;
+                }
+                else{
+                    $('#quesWarn').text("");
+                }
+                url="/api/todoadd/";
+                $.ajax({
+                            url: url,
+                            type: "POST",
+                            data: $('#form').serialize(),
+                            dataType: "JSON",
+                            success: function (data) {
+                                //如果成功，隐藏弹出框并重新加载数据
+                                $('#quesModel').modal('hide');
+                                reload_table();
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                alert('新建或添加错误！');
+                                alert(jqXHR.responseText);
+                                alert(jqXHR.status);
+                                alert(jqXHR.readyState);
+                                alert(jqXHR.statusText);
+                                /*弹出其他两个参数的信息*/
+                                alert(textStatus);
+                                alert(errorThrown);
+                            }
+                        })
+
+            })
+
+        })
+        function reload_table() {
+        $.ajax({
+            url: "/api/todogetlist/",
+            type: "get",
+            dataType: "JSON",
+            success: function (data) {
+                $("#questiondl").empty()
+                var htmlstr = ""
+                for (var i = 0; i < data.questionlist.length; i++) {
+                    htmlstr = htmlstr +
+                            "<dt class='questiondt' id='dt" + data.questionlist[i].id + "'>" + data.questionlist[i].questionname + "</dt>" +
+                            "<dd class='questiondd' id='dd" +data.questionlist[i].id + "'>" +
+                            "<p>" + data.questionlist[i].content + "</p>" +
+                            "<a role='button' class='btn btn-primary' href='/answer/?nomalid="+  data.questionlist[i].id +"'>查看答案</a>" +
+                            "</dd>"
+                }
+
+                $("#questiondl").html(htmlstr);
+                $('.questiondd').filter(':nth-child(n)').hide();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert('获取数据错误');
+            }
+        })
+
+
+    }
+
+	</script>
+</body>
+</html>

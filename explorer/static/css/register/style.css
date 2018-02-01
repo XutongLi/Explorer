@@ -1,0 +1,601 @@
+
+/*--- reset code ---*/
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,dl,dt,dd,ol,nav ul,nav li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,menu,nav,output,ruby,section,summary,time,mark,audio,video {
+	margin:0;
+	padding:0;
+	border:0;
+	font-size:100%;
+	font:inherit;
+	vertical-align:baseline;
+}
+article, aside, details, figcaption, figure,footer, header,  menu, nav, section {
+	display: block;
+}
+ol,ul {
+	list-style:none;
+	margin:0px;
+	padding:0px;
+}
+blockquote,q {
+	quotes:none;
+}
+blockquote:before,blockquote:after,q:before,q:after {
+	content:'';
+	content:none;
+}
+table {
+	border-collapse:collapse;
+	border-spacing:0;
+}
+
+/* start editing from here */
+a {
+	text-decoration:none;
+}
+.txt-rt {
+	text-align:right;
+}/* text align right */
+.txt-lt {
+	text-align:left;
+}/* text align left */
+.txt-center {
+	text-align:center;
+/*-- W3Layouts --*/	
+}/* text align center */
+.float-rt {
+	float:right;
+}/* float right */
+.float-lt {
+	float:left;
+}/* float left */
+.clear {
+	clear:both;
+}/* clear float */
+.pos-relative {
+	position:relative;
+}/* Position Relative */
+.pos-absolute {
+	position:absolute;
+}/* Position Absolute */
+.vertical-base {	
+	vertical-align:baseline;
+}/* vertical align baseline */
+.vertical-top {	
+	vertical-align:top;
+}/* vertical align top */
+nav.vertical ul li {	
+	display:block;
+}/* vertical menu */
+nav.horizontal ul li {	
+	display: inline-block;
+}/* horizontal menu */
+img {
+	max-width:100%;
+}
+
+/*-- /reset code --*/ 
+body {
+	margin:0;
+	padding:0;
+	background:url(../../img/banner.jpg);
+	background-repeat:no-repeat;
+	background-attachment:fixed;
+	background-position:center;
+	background-size:cover;
+	-webkit-background-size:cover;
+	-moz-background-size:cover;
+	-o-background-size:cover;
+	-ms-background-size:cover;	
+	font-family: 'Exo', sans-serif;
+	font-weight:normal;
+}
+h1 {
+    text-align: center;
+    font-size:45px;
+    font-weight:300;
+	text-transform:uppercase;
+    padding: 40px 0 65px;
+	color:#fff;
+	font-family: 'Nunito', sans-serif;
+}
+.content-w3ls {
+	width:40%;
+	background-color:rgba(0,0,0,0.45);
+	margin:0 auto;
+	padding:30px;
+    padding-bottom: 80px;
+}
+label.email-w3ls,label.pwd-w3ls,p.gender-agile,p.time-w3ls {
+    font-size: 17px;
+    display: block;
+    color: #fff;
+    padding-bottom: 10px;
+}
+.form-group{
+	padding-bottom:20px;
+	width:100%;
+}
+input[type="text"] {
+	padding:8px;
+	width:97%;
+	border: 1px solid #fff;
+	color:#fff; 
+	text-align:left;
+	outline:none;
+	font-size:20px;
+	font-weight:normal;
+	letter-spacing:1px;
+	font-family: 'Exo', sans-serif;
+	background-color:rgba(0,0,0,0.1);
+}
+input[type="password"] {
+	padding:8px;
+	width:97%;
+	border: 1px solid #fff;
+	color:#fff;
+	text-align:left;
+	outline:none;
+	font-size:20px;
+	font-weight:normal;
+	letter-spacing:1px;
+	font-family: 'Exo', sans-serif;
+	background-color:rgba(0,0,0,0.1);
+}
+
+p.gender-agile {
+	padding-bottom:10px;	
+}
+ul.gender-w3ls li {
+    color: #AAAAAA;
+    display: block;
+    background-color: #2f2f2f;
+    position: relative;
+    float: left;
+    width: 40%;
+    margin-right: 5px;
+}
+ul.gender-w3ls li input[type=radio]{
+	position: absolute;
+	visibility: hidden;
+}
+ul.gender-w3ls li label{
+	display: block;
+	position: relative;
+	font-weight: 300;
+	font-size:20px;
+	padding:12px 10px 13px 50px;
+	font-weight:normal;
+	z-index: 9;
+	cursor: pointer;
+	-webkit-transition: all 0.25s linear;
+}
+ul.gender-w3ls li:hover label{
+	color: #FFFFFF;
+}
+ul.gender-w3ls li .check{
+	display: block;
+	position: absolute;
+	border: 5px solid #AAAAAA;
+	border-radius: 100%;
+	height: 15px;
+	width: 15px;
+	top: 11px;
+	left: 20px;
+	z-index: 5;
+	transition: border .25s linear;
+	-webkit-transition: border .25s linear;
+}
+ul.gender-w3ls li:hover .check {
+	border: 5px solid #FFFFFF;
+}
+ul.gender-w3ls li .check::before {
+	display: block;
+	position: absolute;	
+	content: '';
+	border-radius: 100%;
+	height: 15px;
+	width: 15px;
+	top: 0px;
+	left: 0px;
+	margin: auto;
+	transition: background 0.25s linear;
+	-webkit-transition: background 0.25s linear;
+}
+input[type=radio]:checked ~ .check {
+	border: 5px solid #0DFF92;
+}
+input[type=radio]:checked ~ .check::before{
+	background: #0DFF92;
+}
+input[type=radio]:checked ~ label{
+	color: #0DFF92;
+}
+input#timepicker {
+    padding: 10px;
+    font-size: 20px;
+    text-align: center;
+    width:92%;
+	color:#fff;
+	font-family: 'Exo', sans-serif;
+	font-weight:normal;
+    background-color: transparent;
+}
+p.time-w3ls {
+    color: #fff;
+    padding-bottom: 10px;
+}
+input[type="submit"] {
+	float: left;
+    width: 50%;
+    font-size: 20px;
+    font-weight: normal;
+    padding: 10px;
+	font-family: 'Nunito', sans-serif;
+	background-color:rgb(106, 57, 40);
+	color:#fff;
+	transition: all 0.5s ease-in-out;
+	-webkit-transition: all 0.5s ease-in-out;
+	-moz-transition: all 0.5s ease-in-out;
+	-o-transition: all 0.5s ease-in-out;
+	-ms-transition: all 0.5s ease-in-out;
+	border:none;
+	cursor:pointer;
+}
+#toLogin{
+	float: left;
+	width: 50%;
+	font-size: 20px;
+	font-weight: normal;
+	padding: 10px;
+	font-family: 'Nunito', sans-serif;
+	background-color: rgb(134, 79, 46);
+	color:#fff;
+	transition: all 0.5s ease-in-out;
+	-webkit-transition: all 0.5s ease-in-out;
+	-moz-transition: all 0.5s ease-in-out;
+	-o-transition: all 0.5s ease-in-out;
+	-ms-transition: all 0.5s ease-in-out;
+	border:none;
+	cursor:pointer;
+}
+input[type="submit"]:hover {
+	background-color: rgba(0, 0, 0, 1);
+	border-color:rgba(0, 0, 0, 1);
+}
+#toLogin:hover {
+	background-color: rgba(0, 0, 0, 1);
+	border-color:rgba(0, 0, 0, 1);
+}
+.footer-agile {
+	margin-top:5%;
+	text-align:center;
+}
+.footer-agile p,.footer-agile p a {
+	font-size:18px;
+	line-height:30px;
+	letter-spacing:1px;
+	font-weight:normal;
+	color:#fff;
+}
+.footer-agile p a:hover {
+	color:red;
+}
+
+
+
+@media (max-width:1440px) {
+input#timepicker {
+	width:263px;
+}
+.wickedpicker {
+	width:287px;
+}
+ul.gender-w3ls li {
+	width:47%;
+}
+}
+
+@media (max-width:1366px) {
+	h1 {
+	font-size:37px;	
+	}
+	input[type="email"],input[type="password"] {
+	width:520px;	
+	}
+	input#timepicker {
+    width: 264px;
+    padding: 7px 0;
+}
+.wickedpicker {
+    width: 268px;
+}
+ul.gender-w3ls li label {
+	font-size:18px;
+}
+.footer-agile {
+    margin-top: 4%;
+}
+ul.gender-w3ls li label {
+    padding: 11px 10px 12px 50px;
+}
+ul.gender-w3ls li .check {
+	left: 12px;
+}
+.content-w3ls {
+    width: 42%;
+}
+}
+
+@media (max-width: 1080px) {
+.content-w3ls {
+    width: 50%;
+}
+}
+
+@media (max-width: 1050px) {
+input[type="email"], input[type="password"] {
+    width: 506px;
+}
+ul.gender-w3ls li label {
+    padding: 10px 10px 11px 45px;
+}
+ul.gender-w3ls li .check {
+	top:9px;
+}
+input#timepicker {
+	font-size:18px;
+	width: 257px;
+}
+}
+
+@media (max-width: 1024px) {
+h1 {
+	font-size:35px;
+	padding:24px 0;	
+}
+input[type="email"], input[type="password"] {
+    width: 485px;
+	font-size:18px;
+}
+input#timepicker {
+	width: 246px;
+}
+.wickedpicker {
+    width: 250px;
+}
+.footer-agile p, .footer-agile p a {
+    font-size: 16px;
+}
+.footer-agile {
+    margin-top: 3%;
+}
+}
+
+@media (max-width: 991px) {
+input[type="email"], input[type="password"] {
+	font-size:16px;
+}
+	input#timepicker {
+    width: 242px;
+}
+ul.gender-w3ls li label {
+	font-size:17px;
+}
+input[type="submit"],#toLogin {
+	font-size:18px;
+}
+
+input#timepicker {
+	font-size:17px;
+}
+}
+
+@media (max-width: 900px) {
+.content-w3ls {
+    width: 55%;
+}
+input[type="email"], input[type="password"] {
+    width: 475px;
+}
+input[type="submit"] ,#toLogin{
+	padding:8px 0;
+}
+}
+
+@media (max-width: 800px) {
+.content-w3ls {
+    width: 60%;
+}
+input[type="email"], input[type="password"] {
+    width: 462px;
+}
+input#timepicker {
+    width: 235px;
+}
+}
+
+@media (max-width: 768px) {
+input[type="email"], input[type="password"] {
+    width: 441px;
+}
+input#timepicker {
+    width: 225px;
+}
+.wickedpicker {
+    width: 229px;
+}
+}
+
+@media (max-width: 736px) {
+input[type="email"], input[type="password"] {
+    width: 412px;
+}
+h1 {
+    font-size: 32px;
+}
+ul.gender-w3ls li label {
+    font-size: 16px;
+	padding: 10px 10px 11px 40px;
+}
+input#timepicker {
+    width: 211px;
+}
+}
+
+@media (max-width: 667px) {
+input[type="email"], input[type="password"] {
+    width: 372px;
+}
+
+input#timepicker {
+    width: 99%;
+}
+}
+
+@media (max-width: 640px) {
+input[type="email"], input[type="password"] {
+    width: 356px;
+}
+ul.gender-w3ls li label {
+	padding:10px 10px 11px 70px;
+}
+ul.gender-w3ls li {
+    width: 48.5%;
+    margin-right: 2px;
+    margin-left: 2px;
+}
+}
+
+@media (max-width: 600px) {
+input[type="email"], input[type="password"] {
+    width: 330px;
+}
+input#timepicker {
+    width: 98.5%;
+}
+.footer-agile p {
+	font-size:15px;
+	padding-bottom:20px;
+}
+h1 {
+    font-size: 28px;
+}
+}
+
+@media (max-width: 568px) {
+input[type="email"], input[type="password"] {
+    width: 311px;
+}
+.content-w3ls {
+    width: 65%;
+    padding: 25px 25px;
+}
+}
+
+@media (max-width: 480px) {
+label.email-w3ls, label.pwd-w3ls, p.gender-agile, p.time-w3ls {
+    font-size: 15px;
+	padding-bottom:7px;
+}
+input[type="email"], input[type="password"] {
+    width: 283px;
+}
+.wickedpicker {
+    width: 299px;
+    padding-bottom: 10px;
+}
+
+.footer-agile p {
+    font-size: 14px;
+}
+input[type="submit"] ,#toLogin{
+    font-size: 17px;
+    letter-spacing: 1px;
+}	
+}
+
+@media (max-width: 414px) {
+.content-w3ls {
+    width: 75%;
+    padding: 25px 20px;
+}
+input[type="email"], input[type="password"] {
+    width: 278px;
+}
+input#timepicker {
+    width: 292px;
+    height: 23px;
+}
+}
+
+@media (max-width: 384px) {
+h1 {
+    font-size: 26px;
+}
+input[type="email"], input[type="password"] {
+    width: 257px;
+}
+input#timepicker {
+    width: 271px;
+    height: 22px;
+}
+.wickedpicker {
+    width: 275px;
+}
+}
+
+@media (max-width: 375px) {
+input[type="email"], input[type="password"] {
+    width: 250px;
+	font-size: 15px;
+}
+ul.gender-w3ls li label {
+    padding: 10px 10px 11px 50px;
+	font-size: 15px;
+}
+input#timepicker {
+    font-size: 15px;
+	width: 264px;
+    height: 21px;
+}
+input[type="submit"] ,#toLogin{
+    font-size: 16px;
+}
+.footer-agile p {
+    padding: 10px 20px 20px;
+}
+.footer-agile p a {
+	font-size:14px;
+}
+}
+
+@media (max-width: 320px) {
+h1 {
+    font-size: 22px;
+}
+.content-w3ls {
+    width: 80%;
+    padding: 20px 15px;
+}
+input[type="email"], input[type="password"] {
+    width: 225px;
+    font-size: 14px;
+}
+ul.gender-w3ls li {
+    width: 48%;
+}
+input#timepicker {
+    font-size: 14px;
+    width: 238px;
+    height: 20px;
+}
+input[type="submit"] ,#toLogin{
+    font-size: 15px;
+}
+.footer-agile p {
+    padding: 10px 10px 20px;
+}
+}
+
+
+/*-- responsive design --*/

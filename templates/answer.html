@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Explorer - 答案界面</title>
+    <link rel="icon" type="image/x-icon" href="/static/img/logo.ico">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/answer/reset.css" >
+	<link rel="stylesheet" href="/static/css/answer/style.css">
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="/static/js/jquery-1.11.0.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        img {
+            max-width:100%;
+        }
+        body {
+            margin:0;
+            padding:0;
+            background:url(/static/img/banner.jpg);
+            background-repeat:no-repeat;
+            background-attachment:fixed;
+            background-position:center;
+            background-size:cover;
+            -webkit-background-size:cover;
+            -moz-background-size:cover;
+            -o-background-size:cover;
+            -ms-background-size:cover;
+            font-family: 'Exo', sans-serif;
+            font-weight:normal;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-color: rgba(83, 83, 83, 0.64);">
+
+            <div class="navbar-header col-md-2 col-md-offset-1">
+                <a class="navbar-brand" style="color: white"> &emsp;&ensp;Explorer</a>
+            </div>
+            <div class="col-md-6">
+                <form class="navbar-form navbar-left" role="search">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="search" placeholder="Search" style="width: 400px;" >
+                    </div>
+                    <button type="button" class="btn btn-default" id="answerBtn" style="width: 80px;background-color: whitesmoke">回答</button>
+                    <button type="button" class="btn btn-default" id="returnBtn" style="width: 110px;background-color: whitesmoke" onclick="location.href='/'">返回问题列表</button>
+                </form>
+            </div>
+            <div class="col-md-1">
+                <!--下拉按钮(用户信息，退出登录)-->
+                <div class="dropdown">
+                    <button type="button" class="btn dropdown-toggle navbar-btn" id="dropdownMenu1"
+                            data-toggle="dropdown" style="background-color: whitesmoke;width: 150px;">
+                        <i class="fa fa-user-circle-o"></i> 我的账号 <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="/user/?username={{ answername }}">账号信息</a>
+                        </li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="/logout/">退出登录</a>
+                        </li>
+                    </ul>
+                </div>
+                <!--<button type="button" class="btn btn-default navbar-btn" style="width: 150px;"><i class="fa fa-user-circle-o"></i> 用户信息</button>-->
+            </div>
+        </nav>
+    </div>
+
+</div>
+<br>
+<br>
+<div class="container" style="background-color: rgba(132, 132, 132, 0.37)">
+    <br>
+    <!--问题及问题描述-->
+    <div class="row">
+        <div class="panel panel-default col-md-10 col-md-offset-1">
+            <div class="panel-heading">
+                <h1 class="panel-title" style="height:25px;text-align:center;font-size: 20px;">{{ onequestion.questionname }}</h1>
+            </div>
+            <div class="panel-body">
+                <dl class="quesdl">
+                    <dt class="quesdt" id="questd1" style="font-size: 17px;font-weight: 500;">
+                       {{  onequestion.content }}
+                    </dt>
+                    <dt>
+                    <div style="width:50%;padding:0;margin:0;float:left;text-align: left">
+                        <a id="quesPeople" class="btn btn-default disabled" role="button" style="font-size:17px;width: 300px;">提问者：{{ onequestion.questioner }}</a>
+                    </div>
+                    <div style="width:50%;padding:0;margin:0;float:left;text-align: right">
+                        <a id="followBtn"  class="btn btn-primary" role="button" style="font-size:17px;width: 150px">关注问题</a>
+                    </div>
+                    </dt>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="panel panel-default col-md-10 col-md-offset-1">
+            <div class="panel-heading">
+                <h1 class="panel-title" style="height:25px;text-align:center;font-size: 20px;">答案列表</h1>
+            </div>
+            <div class="panel-body">
+                <dl class="ansdl" id="answerdl">
+
+                    {%  for answer in answerlist %}
+                    <dt class="ansdt" id="dt{{answer.id  }}">
+                        <a class="btn btn-primary disabled" role="button" style="font-size:17px;width: 250px;">
+                            <i class="fa fa-user-o"></i>
+                            &nbsp; {{ answer.answername }}
+                        </a>
+                    </dt>
+                    <dd class="ansdd" id="dd{{answer.id  }}">
+                        <p style="font-size: 16px;">
+                            {{ answer.content }}
+                        </p>
+                        <div style="text-align: right;">
+                            <a role="button" class="btn btn-danger like" id="like{{ answer.id }}" style="width: 80px;"><i class="fa fa-thumbs-o-up"></i> &nbsp;<span id="like{{ answer.id }}text">{{ answer.likenum }}</span></a>
+                        </div>
+                    </dd>
+                        <input type="hidden" class="likeflaginput" id="likeflag{{ answer.id }}" name="_csrf" value="{{ answer.flag }}"  >
+                    {% endfor %}
+
+
+
+
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="text-align: center;">
+        <p style="color: whitesmoke;">Copyright © 2018 Explorer_Team. All rights reserved.</p>
+    </div>
+</div>
+
+<!--回答问题模态框-->
+<!-- Bootstrap modal -->
+<div class="modal fade" id="ansModel" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title" style="text-align: center;color: #5e5e5e;">Explorer - 回答</h3>
+            </div>
+            <div class="modal-body form">
+                <form action="#" id="form" class="form-horizontal" name="ansForm" >
+                    {% csrf_token %}
+                    <input type="hidden"  id="answername" name="answername" value="{{ answername }}"  >
+                    <input type="hidden"  id="questionid" name="questionid" value="{{ onequestion.id }}"/>
+                    <div class="form-body">
+                        <div class="form-group">
+                            <div class="col-md-8 col-md-offset-2">
+                                <textarea name="ansContent" class="form-control" type="text" id="ansContent" style="height: 250px;"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <span id="ansWarn" style="color: #633e12;"></span>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <button type="button" id="subAsnBtn" class="btn btn-primary">提交答案</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<!-- End Bootstrap modal -->
+
+<!-- 关注成功模态框 -->
+<div class="modal fade" id="followModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 330px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel" style="color: #761c19;">
+                   提示
+                </h4>
+            </div>
+            <div class="modal-body" style="padding: 25px;font-size: 15px;text-align: center;">
+                关注成功
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!-- 取关成功模态框 -->
+<div class="modal fade" id="unfollowModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 330px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel" style="color: #761c19;">
+                    提示
+                </h4>
+            </div>
+            <div class="modal-body" style="padding: 25px;font-size: 15px;text-align: center;">
+                取消关注成功
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+	<script type="text/javascript">
+        $(function(){
+
+
+            //搜索功能
+            $(document).on("input propertychange",'#search', function () {
+                var str = $("#search").val();
+                var viewlist = $(".ansdl").find(".ansdd");  //答案
+                var dtlist= $(".ansdl").find(".ansdt"); //回答人
+                for(var i = 0; i < viewlist.length; i++){
+                    var id1 = "#" + viewlist.eq(i).attr("id");//答案
+                    var id2 = "#" + dtlist.eq(i).attr("id");
+                    if(viewlist.eq(i).text().toLowerCase().indexOf(str.toLowerCase()) != -1 ){  //匹配到
+                        $(id1).show();
+                        $(id2).show();
+                    }
+                    else{
+                        $(id2).hide();
+                        $(id1).hide();
+
+                    }
+                }
+            });
+
+            //提问框弹出
+            $("#answerBtn").on('click',function (){
+                $("#ansHead").val("");
+                $("#ansContent").val("");
+                $('#ansWarn').text("");
+                $("#ansModel").modal('show');
+            });
+
+            //判断提问内容
+            $("#subAsnBtn").on('click',function (){
+                save_method = 'add';
+                var y = $("#ansContent").val();
+                if (y == null ||y == ""){
+                    $('#ansWarn').text("Warning: 请输入答案");
+                    return false;
+                }
+                else{
+                    $('#ansWarn').text("");
+                }
+                url="/api/answeradd/";
+                $.ajax({
+                            url: url,
+                            type: "POST",
+                            data: $('#form').serialize(),
+                            dataType: "JSON",
+                            success: function (data) {
+                                //如果成功，隐藏弹出框并重新加载数据
+                                $('#ansModel').modal('hide');
+                                reload_table();
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                alert('新建或添加错误！');
+                            }
+                        })
+            })
+            function reload_table() {
+                $.ajax({
+                    url: "/api/answergetlist/",
+                    type: "get",
+                    data:{questionid:$('#questionid').val()},
+                    dataType: "JSON",
+                    success: function (data) {
+                      $("#answerdl").empty()
+                      var htmlstr = ""
+                      for (var i = 0; i < data.answerlist.length; i++) {
+                          htmlstr = htmlstr + "<dt class='ansdt' id='dt"+ data.answerlist[i].id + "'>" +
+                              "<a class='btn btn-primary disabled' role='button' style='font-size:17px;width: 250px;'>" +
+                              "<i class='fa fa-user-o'></i>&nbsp; " +
+                              data.answerlist[i].answername +
+                              "</a>" + "</dt>" + "<dd class='ansdd' id='dd"+ data.answerlist[i].id + "'>" +
+                              "<p style='font-size: 16px;'>" +
+                              data.answerlist[i].content + "</p>" +
+                              "<div style='text-align: right;'>" +
+                              " <a role='button' class='btn btn-danger like' id='like"+ data.answerlist[i].id +"' style='width: 80px;'>" +
+                              "<i class='fa fa-thumbs-o-up'></i> &nbsp;<span id='like"+ data.answerlist[i].id+"text'>" + data.answerlist[i].likenum +"</span></a>" + "</div>" + "</dd>"+
+                                  "<input type=\"hidden\" class=\"likeflaginput\" id=\"likeflag" + data.answerlist[i].id +"\" name=\"_csrf\" value=\"" + data.answerlist[i].flag +"\"  >"
+                      }
+                      $("#answerdl").html(htmlstr);
+                        likeinit();
+                     },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert('获取数据错误');
+                     }
+        })
+
+
+    }
+            //关注成功框弹出 isfollow
+            var isfollow = {{ isfollow }};   //全局变量
+            if(isfollow == 0){
+                $("#followBtn").text("关注问题");
+            }
+            else{
+                $("#followBtn").text("取消关注");
+            }
+
+            $("#followBtn").on('click',function (){
+                if(isfollow == 0){
+                    $("#followBtn").text("取消关注");
+                    $("#followModal").modal('show');
+                    isfollow = 1;
+                    url1= "/api/followexe/";
+                    $.ajax({
+                            url: url1,
+                            type: "POST",
+                            data: $('#form').serialize(),
+                            //data:{id:$("#questionid").val(),username:$("#answername").val()},
+                            dataType: "JSON",
+                            success: function (data) {
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                alert('错误！');
+                            }
+                        })
+                }
+                else{
+                    $("#unfollowModal").modal('show');
+                    $("#followBtn").text("关注问题");
+                    isfollow = 0;
+                    url="/api/unfollowexe/";
+                    $.ajax({
+                            url: url,
+                            type: "POST",
+                            //data: $('#form').val(),
+                            data: $('#form').serialize(),
+{#                            data:{id:onequestion.id,username:answername},#}
+                            dataType: "JSON",
+                            success: function (data) {
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                alert('错误！');
+                            }
+                        })
+                }
+
+            });
+
+            //初始化能否点赞
+            function likeinit() {
+                var islikelist = $(".ansdl").find(".likeflaginput");
+            for(var i = 0; i < islikelist.length; i++){
+                var id = "#" + islikelist.eq(i).attr("id");//取id
+                var flag=$(id).val();
+                if( flag== 1){   //已点赞
+                    var strs= new Array();
+                    strs=id.split("g");
+                    var buttonid="#like"+strs[1];
+                    $(buttonid).addClass("disabled");
+                }
+            }
+            }
+
+            //点赞
+            likeinit() ;
+            $(document).on('click','.like',function () {
+                var id = $(this).attr("id");
+                var strs= new Array();
+                strs=id.split("e")
+                var flagId = "#"+"likeflag"+strs[1];
+                var answerid = strs[1]
+                var flag=$(flagId).val()
+                if(flag == 0){    //未点赞
+                    $(this).addClass("disabled");
+                    var idtext = "#" + id + "text";
+                    var likenum = parseInt($(this).text());
+                    likenum = likenum + 1;
+                    $(idtext).text(likenum);
+
+                    $.ajaxSetup({
+                        data:{csrfmiddlewaretoken:'{{ csrf_token }}'},
+                     });
+
+                    $.ajax({
+                            url:"/api/likeexe/" ,
+                            type: "POST",
+                            data:{id:answerid},
+                            dataType: "JSON",
+                            success: function (data) {
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                alert('错误！');
+                            }
+                        })
+                }
+            })
+        })
+
+	</script>
+</body>
+</html>

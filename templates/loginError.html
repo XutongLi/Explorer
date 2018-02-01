@@ -1,0 +1,269 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Explorer-在线问答网站</title>
+    <link rel="icon" type="image/x-icon" href="static/img/logo.ico">
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+*{
+    margin:0;
+    padding:0;
+    list-style-type:none;
+}
+/* PARALLAX */
+.body {
+    margin: -5px;
+}
+
+.keyart, .keyart_layer {
+    height: 1000px;
+}
+
+#parallax {
+    display: block;
+}
+
+.keyart {
+    position: relative;
+    z-index: 10;
+    /*height:00px;*/
+    height:1000px;
+}
+
+.keyart_layer {
+    background-position: bottom center;
+    background-size: auto 1038px;
+    background-repeat: repeat-x;
+    width: 100%;
+
+    position: absolute;
+}
+
+.keyart_layer.parallax {
+    position: fixed;
+}
+
+#keyart-0 {
+    background-image: url(/static/img/parallax0.png);
+    background-color: #ffaf1b;
+}
+
+#keyart-1 {
+    background-image: url(/static/img/parallax1.png);
+}
+
+#keyart-2 {
+    background-image: url(/static/img/parallax2.png);
+}
+
+#keyart-3 {
+    background-image: url(/static/img/parallax3.png);
+}
+
+#keyart-4 {
+    background-image: url(/static/img/parallax4.png);
+}
+
+#keyart-5 {
+    background-image: url(/static/img/parallax5.png);
+}
+
+#keyart-6 {
+    background-image: url(/static/img/parallax6.png);
+}
+
+#keyart-7 {
+    background-image: url(/static/img/parallax7.png);
+}
+
+#keyart-8 {
+    background-image: url(/static/img/parallax8.png);
+}
+
+#keyart-scrim {
+    background-color: #ffaf00;
+    opacity: 0;
+}
+
+@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+    #keyart-0 {
+        background-image: url(/static/img/parallax0@2x.png);
+        background-color: #ffaf1b;
+    }
+
+    #keyart-1 {
+        background-image: url(/static/img/parallax1@2x.png);
+    }
+
+    #keyart-2 {
+        background-image: url(/static/img/parallax2@2x.png);
+    }
+
+    #keyart-3 {
+        background-image: url(/static/img/parallax3@2x.png);
+    }
+
+    #keyart-4 {
+        background-image: url(/static/img/parallax4@2x.png);
+    }
+
+    #keyart-5 {
+        background-image: url(/static/img/parallax5@2x.png/);
+    }
+
+    #keyart-6 {
+        background-image: url(/static/img/parallax6@2x.png);
+    }
+
+    #keyart-7 {
+        background-image: url(/static/img/parallax7@2x.png);
+    }
+
+    #keyart-8 {
+        background-image: url(/static/img/parallax8@2x.png);
+    }
+}
+</style>
+</head>
+<body>
+<!--头部导航栏-->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-color: rgba(18, 0, 17, 0.7);">
+<div class="container-fluid">
+    <div class="navbar-header ">
+        <a class="navbar-brand" style="color: white">Explorer</a>
+    </div>
+    <div>
+        <p class="navbar-text">Online Q&A Website</p>
+    </div>
+    <form class="navbar-form navbar-right" role="navigation" method="post" name="form" onsubmit="return validateForm()">
+        {% csrf_token %}
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Username" name="username" id="username">
+            <input type="password" class="form-control" placeholder="Password" name="password" id="password">
+        </div>
+        <button type="submit" class="btn btn-default" href="/login/">登录</button>
+        <button type="button" class="btn btn-default" id="regiBtn" onclick="location.href='/register/'">注册</button>
+    </form>
+</div>
+</nav>
+
+<!--尾部信息栏-->
+<nav class="navbar navbar-inverse navbar-fixed-bottom" role="navigation" style="background-color: rgba(116, 94, 168, 0.06);">
+    <div class="container-fluid"style="text-align: center;">
+        <p class="navbar-text" style="display: inline-block;float: none;">Copyright © 2018 Explorer_Team. All rights reserved.</p>
+    </div>
+</nav>
+
+<!--<br/>-->
+<!--<br/>-->
+<!--背景图片-->
+<div class="keyart" id="parallax">
+    <div class="keyart_layer parallax" id="keyart-0" data-speed="2"></div>
+    <!-- 00.0 -->
+    <div class="keyart_layer parallax" id="keyart-1" data-speed="5"></div>
+    <!-- 12.5 -->
+    <div class="keyart_layer parallax" id="keyart-2" data-speed="11"></div>
+    <!-- 25.0 -->
+    <div class="keyart_layer parallax" id="keyart-3" data-speed="16"></div>
+    <!-- 37.5 -->
+    <div class="keyart_layer parallax" id="keyart-4" data-speed="26"></div>
+    <!-- 50.0 -->
+    <div class="keyart_layer parallax" id="keyart-5" data-speed="36"></div>
+    <!-- 62.5 -->
+    <div class="keyart_layer parallax" id="keyart-6" data-speed="49"></div>
+    <!-- 75.0 -->
+    <div class="keyart_layer" id="keyart-scrim"></div>
+    <div class="keyart_layer parallax" id="keyart-7" data-speed="69"></div>
+    <!-- 87.5 -->
+    <div class="keyart_layer" id="keyart-8" data-speed="100"></div>
+    <!-- 100. -->
+</div>
+
+<!-- 表单为空模态框 -->
+<div class="modal fade" id="warnModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 330px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel" style="color: #761c19;">
+                    Warning!
+                </h4>
+            </div>
+            <div class="modal-body" style="padding: 25px;font-size: 15px;">
+                用户名与密码不能为空
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!-- 登录失败模态框 -->
+<div class="modal fade" id="loginErrorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 330px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="loginErrorModalLabel" style="color: #761c19;">
+                    ERROR!
+                </h4>
+            </div>
+            <div class="modal-body" style="padding: 25px;font-size: 15px;text-align: center;">
+                登录失败
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+
+<script>
+    //动画效果
+function castParallax() {
+
+    var opThresh = 350;
+    var opFactor = 750;
+
+     window.addEventListener("scroll", function(event) {
+         var top = this.pageYOffset;
+
+        var layers = document.getElementsByClassName("parallax");
+        var layer, speed, yPos;
+        for (var i = 0; i < layers.length; i++) {
+            layer = layers[i];
+            speed = layer.getAttribute('data-speed');
+            var yPos = -(top * speed / 100);
+        layer.setAttribute('style', 'transform: translate3d(0px, ' + yPos + 'px, 0px)');
+        }
+     });
+}
+document.body.onload = castParallax();
+
+    //用户名密码为空提示
+    function validateForm(){
+        var x = document.forms["form"]["username"].value;
+        var y = document.forms["form"]["password"].value;
+        if (x == null || x == "" ||y == null ||y == ""){
+            $('#warnModal').modal('show')
+            return false;
+        }
+    }
+$(document).ready(function(){
+        $("#loginErrorModal").modal('show');
+    });
+</script>
+
+</body>
+</html>
+

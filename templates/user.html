@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
+    <title>Explorer - 用户信息</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="icon" type="image/x-icon" href="/static/img/logo.ico">
+    <link rel="stylesheet" href="/static/user/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/user/css/normalize.min.css">
+    <link rel="stylesheet" href="/static/user/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/user/css/animate.css">
+    <link rel="stylesheet" href="/static/user/css/templatemo_misc.css">
+    <link rel="stylesheet" href="/static/user/css/templatemo_style.css">
+    <script src="/static/user/js/vendor/modernizr-2.6.2.min.js"></script>
+</head>
+<body>
+    <div class="bg-overlay"></div>
+
+    <div class="container-fluid">
+        <div class="row">
+            
+            <div class="col-md-4 col-sm-12">
+                <div class="sidebar-menu">
+                    
+                    <div class="logo-wrapper">
+                        <h1 class="logo">
+                            <a href="#"><img src="/static/user/images/logo1.png" alt="Circle Template">
+                            <span>Explorer User Information</span></a>
+                        </h1>
+                    </div> <!-- /.logo-wrapper -->
+                    
+                    <div class="menu-wrapper">
+                        <ul class="menu">
+                            <li><a class="homebutton" href="#" title="此页面">ThisPage</a></li>
+                            <li><a class="show-1" href="#" title="我的信息">Information</a></li>
+                            <li><a class="show-2" href="#" title="我的回答">Answer</a></li>
+                            <li><a class="show-3" href="#" title="我的提问">Question</a></li>
+                            <li><a class="show-4" href="#" title="我的关注问题">Following</a></li>
+                            <li><a class="show-5" href="/" title="返回问题列表" onclick="location.href='/'">Q&A Page</a></li>
+                            <li><a class="show-6" href="/logout/" title="退出登录" onclick="location.href='/logout/'">Logout</a></li>
+                        </ul> <!-- /.menu -->
+                        <a href="#" class="toggle-menu"><i class="fa fa-bars"></i></a>
+                    </div> <!-- /.menu-wrapper -->
+
+                    <!--Arrow Navigation-->
+                    <a id="prevslide" class="load-item"><i class="fa fa-angle-left"></i></a>
+                    <a id="nextslide" class="load-item"><i class="fa fa-angle-right"></i></a>
+
+                </div> <!-- /.sidebar-menu -->
+            </div> <!-- /.col-md-4 -->
+
+            <div class="col-md-8 col-sm-12">
+                
+                <div id="menu-container">
+
+                    <div id="menu-1" class="about content">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="toggle-content text-center spacing">
+                                    <h3><a href="#"> Username</a> </h3>
+                                    <h2 style="text-transform: none; color: #5a5a5a;">{{ user.username }}</h2>
+                                </div>
+                            </div> <!-- /.col-md-12 -->
+
+                            <div class="col-md-12">
+                                <div class="toggle-content text-center spacing">
+                                    <h3><a href="#">Mail</a> </h3>
+                                    <h2 style="text-transform: none; color: #5a5a5a;">{{ user.email }}</h2>
+                                </div>
+                            </div> <!-- /.col-md-12 -->
+                        </div>
+                    </div> <!-- /.about -->
+
+                    <div id="menu-2" class="services content">
+                        <div class="row">
+                            {% for todo in anslist %}
+                            <div class="col-md-12">
+                                <div class="toggle-content text-center spacing">
+                                    <h3><a href="/answer/?nomalid={{ todo.id }}">{{ todo.questionname }}</a> </h3>
+                                    <p>{{ todo.answercontent }}</p>
+                                </div>
+                            </div> <!-- /.col-md-12 -->
+                            {% endfor %}
+
+
+                        </div> <!-- /.row -->
+                    </div> <!-- /.services -->
+
+                    <div id="menu-3" class="services content">
+                        <div class="row">
+                            {% for one in quelist %}
+                            <div class="col-md-12">
+                                <div class="toggle-content text-center spacing">
+                                    <h3><a href="/answeruserview/?nomalid={{ one.id }}">{{ one.questionname }}</a> </h3>
+                                    <p>{{ one.content }}</p>
+                                    <p style="text-align: right;">
+                                        <button class="btn btn-default" disabled="disabled" style="font-size:17px;width: 100px;">
+                                            <i class="fa fa-comments-o"></i><span>&nbsp;{{ one.remind }}</span></button>
+                                    </p>
+                                </div>
+                            </div> <!-- /.col-md-12 -->
+                            {% endfor %}
+
+                        </div> <!-- /.row -->
+                    </div> <!-- /.services -->
+
+                    <div id="menu-4" class="contact content">
+                        <div class="row">
+                        	<!--contact-->
+                            {% for onefollow in followque %}
+                            <div class="col-md-12">
+                                <div class="toggle-content text-center spacing">
+                                    <h3><a href="/answer/?nomalid={{ onefollow.id }}">{{ onefollow.questionname }}</a> </h3>
+                                    <p>{{ onefollow.content }}</p>
+                                </div>
+                            </div> <!-- /.col-md-12 -->
+                            {% endfor %}
+
+
+                        </div> <!-- /.row -->
+                    </div> <!-- /.contact -->
+
+                </div> <!-- /#menu-container -->
+
+            </div> <!-- /.col-md-8 -->
+
+        </div> <!-- /.row -->
+    </div> <!-- /.container-fluid -->
+    
+    <div class="container-fluid">   
+        <div class="row">
+            <div class="col-md-12 footer">
+                <p id="footer-text">
+                Copyright © 2018 Explorer_Team. All rights reserved.
+                 </p>
+            </div><!-- /.footer --> 
+        </div>
+    </div> <!-- /.container-fluid -->
+
+    <script src="/static/user/js/vendor/jquery-1.10.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="/static/user/js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
+    <script src="/static/user/js/jquery.easing-1.3.js"></script>
+    <script src="/static/user/js/bootstrap.js"></script>
+    <script src="/static/user/js/plugins.js"></script>
+    <script src="/static/user/js/main.js"></script>
+<script type="text/javascript">
+            
+			jQuery(function ($) {
+                //背景图滑动
+                $.supersized({
+
+                    // Functionality
+                    slide_interval: 3000, // Length between transitions
+                    transition: 1, // 0-None, 1-Fade, 2-Slide Top, 3-Slide Right, 4-Slide Bottom, 5-Slide Left, 6-Carousel Right, 7-Carousel Left
+                    transition_speed: 700, // Speed of transition
+
+                    // Components                           
+                    slide_links: 'blank', // Individual links for each slide (Options: false, 'num', 'name', 'blank')
+                    slides: [ // Slideshow Images
+                        {
+                            image: '/static/user/images/templatemo-slide-1.jpg'
+                        }, {
+                            image: '/static/user/images/templatemo-slide-2.jpg'
+                        }, {
+                            image: '/static/user/images/templatemo-slide-3.jpg'
+                        }, {
+                            image: '/static/user/images/templatemo-slide-4.jpg'
+                        }
+                    ]
+
+                });
+
+                //导航栏按钮变化
+                $(".homebutton").on('click',function () {
+                    $(".show-1").css("background-color", "#fff");
+                    $(".show-2").css("background-color", "#fff");
+                    $(".show-3").css("background-color", "#fff");
+                    $(".show-4").css("background-color", "#fff");
+                })
+                $(".show-1").on('click',function(){
+                    $(this).css("background-color", "#d8aa46");
+                    $(".show-2").css("background-color", "#fff");
+                    $(".show-3").css("background-color", "#fff");
+                    $(".show-4").css("background-color", "#fff");
+                })
+                $(".show-2").on('click',function(){
+                    $(this).css("background-color", "#d8aa46");
+                    $(".show-1").css("background-color", "#fff");
+                    $(".show-3").css("background-color", "#fff");
+                    $(".show-4").css("background-color", "#fff");
+                })
+                $(".show-3").on('click',function(){
+                    $(this).css("background-color", "#d8aa46");
+                    $(".show-1").css("background-color", "#fff");
+                    $(".show-2").css("background-color", "#fff");
+                    $(".show-4").css("background-color", "#fff");
+                })
+                $(".show-4").on('click',function(){
+                    $(this).css("background-color", "#d8aa46");
+                    $(".show-1").css("background-color", "#fff");
+                    $(".show-2").css("background-color", "#fff");
+                    $(".show-3").css("background-color", "#fff");
+                })
+
+            });
+            
+    </script>
+</body>
+</html>

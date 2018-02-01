@@ -8,5 +8,7 @@ Explorer Online Q&amp;A Website
 ### 使用技术
 **前端**：HTML + CSS + Bootstrap + jquery + AJAX     <br />
 **后端**：python django + sqlite
+### 使用IDE
+JetBrains PyCharm
 ### 使用方法
 点击run.bat，在浏览器中输入127.0.0.1:8000即可访问

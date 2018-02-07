@@ -12,3 +12,9 @@ Explorer Online Q&amp;A Website
 JetBrains PyCharm
 ### 使用方法
 点击run.bat，在浏览器中输入127.0.0.1:8000即可访问
+### 部分截图
+![问题列表](https://github.com/XutongLi/Explorer/blob/master/screenshot/ques.PNG)
+![回答列表](https://github.com/XutongLi/Explorer/blob/master/screenshot/ans.PNG)
+![登录界面](https://github.com/XutongLi/Explorer/blob/master/screenshot/login.PNG)
+![注册界面](https://github.com/XutongLi/Explorer/blob/master/screenshot/regi.PNG)
+![用户界面](https://github.com/XutongLi/Explorer/blob/master/screenshot/user.PNG)

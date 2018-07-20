@@ -11,7 +11,7 @@ Explorer Online Q&amp;A Website
 ### 使用IDE
 JetBrains PyCharm
 ### 使用方法
-点击run.bat，在浏览器中输入127.0.0.1:8000即可访问
+```python manage.py runserver 8000```
 ### 部分截图
 ![问题列表](https://github.com/XutongLi/Explorer/blob/master/screenshot/ques.PNG)
 ![回答列表](https://github.com/XutongLi/Explorer/blob/master/screenshot/ans.PNG)
